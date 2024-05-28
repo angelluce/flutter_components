@@ -3,6 +3,7 @@ import 'package:flutter_basic_app/screen/alertas_screen.dart';
 import 'package:flutter_basic_app/screen/list_view_screen.dart';
 import 'package:flutter_basic_app/screen/routing_screen.dart';
 import 'package:flutter_basic_app/screen/single_child_screen.dart';
+import 'package:flutter_basic_app/screen/tarjetas_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -88,6 +89,24 @@ class HomeScreen extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pushNamed(context, AlertasScreen.routeName);
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.alt_route,
+              color: Colors.pink,
+            ),
+            title:  const Text('Tarjetas',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.pink,
+                )),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.pink,
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, TarjetasScreen.routeName);
             },
           )
         ],

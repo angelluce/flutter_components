@@ -5,6 +5,7 @@ import 'package:flutter_basic_app/screen/home_screen.dart';
 import 'package:flutter_basic_app/screen/list_view_screen.dart';
 import 'package:flutter_basic_app/screen/routing_screen.dart';
 import 'package:flutter_basic_app/screen/single_child_screen.dart';
+import 'package:flutter_basic_app/screen/tarjetas_screen.dart';
 
 final Map<String, Widget Function(BuildContext)> routes = {
   HomeScreen.routeName: (context) => const HomeScreen(),
@@ -14,4 +15,5 @@ final Map<String, Widget Function(BuildContext)> routes = {
   ListViewScreen.routeName: (context) => const ListViewScreen(),
   SingleChildScreen.routeName: (context) => const SingleChildScreen(),
   AlertasScreen.routeName: (context) => const AlertasScreen(),
+  TarjetasScreen.routeName: (context) => const TarjetasScreen(),
 };
