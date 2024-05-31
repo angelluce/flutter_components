@@ -9,6 +9,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Basic App',
+      debugShowCheckedModeBanner: false,
       routes: routes,
       initialRoute: HomeScreen.routeName,
     );
