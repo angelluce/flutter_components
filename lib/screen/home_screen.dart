@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_basic_app/screen/album_fotos_screen.dart';
 import 'package:flutter_basic_app/screen/alertas_screen.dart';
+import 'package:flutter_basic_app/screen/form_screen.dart';
 import 'package:flutter_basic_app/screen/infinity_scroll_screen.dart';
 import 'package:flutter_basic_app/screen/list_view_screen.dart';
 import 'package:flutter_basic_app/screen/routing_screen.dart';
@@ -164,6 +165,24 @@ class HomeScreen extends StatelessWidget {
             ),
             onTap: () {
               Navigator.pushNamed(context, InfinityScrollScreen.routeName);
+            },
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.swap_vertical_circle_outlined,
+              color: Colors.purple,
+            ),
+            title:  const Text('Formulario',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.purple,
+                )),
+            trailing: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.purple,
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, FormScreen.routeName);
             },
           )
         ],

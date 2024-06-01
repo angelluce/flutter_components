@@ -14,8 +14,10 @@ class _InfinityScrollScreenState extends State<InfinityScrollScreen> {
   List<String>? images;
   final imagesService = ImageService();
 
-  final initialImages = 0;
-  final ammountImages = 10;
+  int initialImages = 0;
+  int ammountImages = 10;
+
+  bool isLoading = false;
 
   late ScrollController scrollController;
 
@@ -37,6 +39,15 @@ class _InfinityScrollScreenState extends State<InfinityScrollScreen> {
     setState(() {});
   }
 
+  Future<void> paginator() async{
+    initialImages += initialImages + ammountImages;
+    isLoading = true;
+    final newImages = await imagesService.getImages(initialImages, ammountImages);
+    isLoading = false;
+    images!.addAll(newImages);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +55,25 @@ class _InfinityScrollScreenState extends State<InfinityScrollScreen> {
           title: const Text('Infinity Scroll'),
           actions: [
             IconButton(
+              icon: const Icon(Icons.arrow_upward),
+              onPressed: () {
+                // scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                scrollController.animateTo(
+                  scrollController.position.minScrollExtent,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.bounceIn,
+                );
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.arrow_downward),
               onPressed: () {
-                scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                // scrollController.jumpTo(scrollController.position.maxScrollExtent);
+                scrollController.animateTo(
+                  scrollController.position.maxScrollExtent,
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.bounceInOut,
+                );
               },
             )
           ],
@@ -65,14 +92,28 @@ class _InfinityScrollScreenState extends State<InfinityScrollScreen> {
               );
             }
 
-            return ListView.builder(
-              controller: scrollController,
-              itemCount: images!.length,
-              itemBuilder: (context, index) {
-                return Card(
-                  child: Image.network(images![index], fit: BoxFit.cover, height: 300,),
-                );
+            return NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                if(notification.metrics.atEdge && notification.metrics.pixels > 0 && !isLoading) {
+                  print('Llegamos al final de la lista');
+                  paginator();
+                }
+
+                if(notification.metrics.pixels > (notification.metrics.maxScrollExtent - 500)) {
+                  print('Estamos llegandos al final de la lista');
+                }
+
+                return true;
               },
+              child: ListView.builder(
+                controller: scrollController,
+                itemCount: images!.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    child: Image.network(images![index], fit: BoxFit.cover, height: 300,),
+                  );
+                },
+              ),
             );
           },
           ),
